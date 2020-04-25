@@ -16,4 +16,5 @@ Next, a series of long short-term memory (LSTM) layers is used. More specificall
 
 After splitting the 1600 data examples into 85% training/validation and 15% testing, the model's accuracy was 87.5%. 
 
-
+___
+I pledge my honor that I have abided by the Stevens Honor System

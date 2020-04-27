@@ -8,13 +8,13 @@ The [Deceptive Opinion Spam Corpus](https://www.kaggle.com/rtatman/deceptive-opi
 
 ## Neural Network Architecture
 
-Because the input data is text-based, an RNN makes sense to use in order to classify the reviews. The first hidden layer in the model is a word embedding layer. This layer's role is to represent each word with an *n*-dimensional vector, where *n* can be tuned based on the number of features that need to be captured. In this project, *n* was selected to be 16 due to the length of the reviews, but further tuning may show a better value instead. Following the embedding layer is a dropout layer, which is used to regularize the network and prevent ovefitting. The dropout factor was set to 0.5, and can be experimented with just like the embedding dimension.
+Because the input data is text-based, an RNN makes sense to use in order to classify the reviews. The first hidden layer in the model is a word embedding layer. This layer's role is to represent each word with an *n*-dimensional vector, where *n* can be tuned based on the number of features that need to be captured. In this project, *n* was selected to be 16 due to the length of the reviews, but further tuning may show a better value instead. Following the embedding layer is a dropout layer, which is used to regularize the network and prevent overfitting. The dropout factor was set to 0.5 and can be experimented with just like the embedding dimension.
 
-Next, a series of long short-term memory (LSTM) layers is used. More specifically, two bidirectional LSTM (BLSTM) layers are used together, each with another dropout layer following their outputs. Each BLSTM layer is broken up into a forward-propogating layer of LSTM cells and a backwards-propogating layer of LSTM cells. Each pair of corresponding forward and backward LSTM cells produce a single output that incorporates context in the text. Again, the dropout layers are placed to prevent overfitting. 
+Next, a series of long short-term memory (LSTM) layers is used. More specifically, two bidirectional LSTM (BLSTM) layers are used together, each with another dropout layer following their outputs. Each BLSTM layer is broken up into a forward-propagating layer of LSTM cells and a backwards-propagating layer of LSTM cells. Each pair of corresponding forward and backward LSTM cells produce a single output that incorporates context in the text. Again, the dropout layers are placed to prevent overfitting. 
 
 ## Results
 
-After splitting the 1600 data examples into 85% training/validation and 15% testing, the model's accuracy was 87.5%. 
+After splitting the 1600 data examples into 85% training/validation and 15% testing, the model's accuracy was 87.5%. This can be further improved by tuning the hyperparameters and model design to find better solutions. 
 
 ___
 I pledge my honor that I have abided by the Stevens Honor System

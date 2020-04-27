@@ -2,9 +2,9 @@ import load_data
 import metrics
 from model import Model
 
-from os import mkdir, environ
+import os
 from time import time, strftime, localtime
-from numpy import save
+
 
 def main():
     # Hyper-parameters (to be tuned)
@@ -18,9 +18,9 @@ def main():
 
     # Set up the output directory for the weights and accuracies to go
     output_dir = 'Training_' + strftime('%Y_%m_%d_%Hh%Mm%Ss', localtime(time()))
-    mkdir(output_dir)
+    os.mkdir(output_dir)
     
-    environ["CUDA_VISIBLE_DEVICES"] = "1"  # Change depending on hardware
+    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
     # Load the data from the .csv file
     train_data, train_labels, test_data, test_labels, max_length, total_words, train_num, val_num = \
@@ -30,15 +30,7 @@ def main():
                             ['truthful', 'deceptive'],
                             test_split,
                             val_split)
-
-    # Save the model parameters so they can be used when loading the model
-    with open(output_dir+'\model_params.txt', 'w') as f:
-        f.write(str(total_words) + '\n' + \
-                str(embedding_dim) + '\n' + \
-                str(max_length) + '\n' + \
-                str(dropout_factor) + '\n' + \
-                str(num_epochs))
-
+    
     # Initialize model parameters
     model = Model(train_data,
                   train_labels,
@@ -60,6 +52,9 @@ def main():
     # Save the test data split in this run so that the model tests on different data than it was trained on
     model.save_test_sequences()
 
+    # Save the model parameters so they can be used when loading the model
+    model.save_hyperparameters(output_dir)
+
     # Print model and data information
     model.summary()
     model.save_summary()
@@ -69,7 +64,6 @@ def main():
           'Feature Size: %d\n'\
           'Saving results to: %s\n'
           % (train_num, val_num, max_length, output_dir))
-
     start = time()
 
     # Compile and train the model, saving the history logs so they can be reused later
@@ -78,9 +72,6 @@ def main():
 
     end = time()
     print('Total time: %s s' % (end - start))
-
-    # Show plots of accuracy and loss over the course of the training epochs
-    # These plots will be saved automatically as well
     metrics.plot(history, params, output_dir)
 
     

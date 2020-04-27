@@ -4,7 +4,6 @@ from time import time
 
 def main():
     model_dir = 'Training_2020_04_24_21h07m38s\\'
-    
 
     # Load the hyperparameters needed to build the model with the same layer shapes that wre used for training
     param_path = model_dir + 'model_params.txt'

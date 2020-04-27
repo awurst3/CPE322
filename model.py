@@ -1,7 +1,7 @@
-from numpy import save
+import numpy as np
 from tensorflow.keras.layers import Embedding, Flatten, Conv1D, LSTM, Dense, Bidirectional, MaxPooling1D, Dropout
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.optimizers import Adam
+#from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger
 
 class Model:
@@ -55,8 +55,17 @@ class Model:
     def save_test_sequences(self):
         '''Save the test data so that the model can be tested on new data that it was not trained on'''
         
-        save(self.output_dir+'\\x_test.npy', self.x_test)
-        save(self.output_dir+'\\y_test.npy', self.y_test)
+        np.save(self.output_dir+'\\x_test.npy', self.x_test)
+        np.save(self.output_dir+'\\y_test.npy', self.y_test)
+
+    def save_hyperparameters(self, output_dir):
+        '''Write the relevant hyperparameters to a file so they can be retrieved after training'''
+        with open(output_dir+'\model_params.txt', 'w') as f:
+            f.write(str(self.total_words) + '\n' + \
+                    str(self.embedding_dim) + '\n' + \
+                    str(self.max_length) + '\n' + \
+                    str(self.dropout_factor) + '\n' + \
+                    str(self.num_epochs))
 
     def set_checkpoint_callback(self, param):
         '''Set a checkpoint to the model's callbacks so that weights can be loaded later'''

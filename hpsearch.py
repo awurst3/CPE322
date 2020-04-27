@@ -1,7 +1,6 @@
-from numpy import load
-from re import search
-from os import listdir
-from fnmatch import fnmatch
+import numpy as np
+import re
+import os
 
 def get_hyperparameters(param_path):
     '''Load the relevant parameters used in training the model for testing
@@ -21,13 +20,13 @@ def get_hyperparameters(param_path):
 def get_test_sequences(model_dir):
     '''Load the test sequences (data and labels) split from the full dataset during training'''
     
-    x_test = load(model_dir + 'x_test.npy')
-    y_test = load(model_dir + 'y_test.npy')
+    x_test = np.load(model_dir + 'x_test.npy')
+    y_test = np.load(model_dir + 'y_test.npy')
     return x_test, y_test
 
 def get_weights_file(model_dir, num_epochs):
     '''Get the name of the file that contains the model weights (based on the last training epoch)'''
     
     pattern = 'ep'+str(num_epochs)+'[\d\w._-]*.hdf5'
-    matches = [search(pattern, file) for file in listdir(model_dir)]
+    matches = [re.search(pattern, file) for file in os.listdir(model_dir)]
     return [i.group(0) for i in matches if i is not None][0]

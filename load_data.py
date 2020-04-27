@@ -1,6 +1,6 @@
 import numpy as np
-from random import shuffle
-from pandas import read_csv
+import random
+import pandas as pd
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
@@ -10,10 +10,9 @@ def split_data(data, labels, test_fraction):
     # Load integers from 0 to the number of data samples into an array
     # These integers will be shuffled and used as the indices of the resulting split arrays
     indices = np.arange(len(data))
-    shuffle(indices)
+    random.shuffle(indices)
     indices = np.array(indices)
 
-    # Fill new arrays with their elements randomly shuffled
     divider = round(test_fraction * len(data))
     test_data = [data[indices[i]] for i in range(divider)]
     test_labels = [labels[indices[i]] for i in range(divider)]
@@ -28,7 +27,7 @@ def load_data(filename, data_column, label_column, label_names, test_split, val_
     '''Extract the data from the dataset and convert the text to sequences'''
 
     # Read the file in as a dataframe and extract the data and labels from it
-    df = read_csv(filename).dropna()
+    df = pd.read_csv(filename).dropna()
     data = df[data_column]
     labels = df[label_column]
     max_length = max([len(i) for i in data])

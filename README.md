@@ -4,7 +4,7 @@ Reviews offer a great way to help guide one's search for a specific product. How
 
 ## Data and Preprocessing
 
-The [Deceptive Opinion Spam Corpus](https://www.kaggle.com/rtatman/deceptive-opinion-spam-corpus) was used to train and test the neural network model. The dataset contains 1600 reviews for hotels, where 800 are truthful and 800 are deceptive. Because there are two classes of reviews, truthful labels were assigned a value of zero while deceptive reviews were assigned a value of one. For the text data itself, a tokenizer was used to convert the sequences of words to sequences of numbers, or tokens. Each word is given a unique token and replaced by its token. Because each review can have a different length, the sequences were also padded on the right with zeros to match the longest sequence's size. With uniformly size data sequences and the binary sequence of labels, the data could be inputted to a neural network. 
+The [Deceptive Opinion Spam Corpus](https://www.kaggle.com/rtatman/deceptive-opinion-spam-corpus)<sup>1</sup> was used to train and test the neural network model. The dataset contains 1600 reviews for hotels, where 800 are truthful and 800 are deceptive. Because there are two classes of reviews, truthful labels were assigned a value of zero while deceptive reviews were assigned a value of one. For the text data itself, a tokenizer was used to convert the sequences of words to sequences of numbers, or tokens. Each word is given a unique token and replaced by its token. Because each review can have a different length, the sequences were also padded on the right with zeros to match the longest sequence's size. With uniformly size data sequences and the binary sequence of labels, the data could be inputted to a neural network. 
 
 ## Neural Network Architecture
 
@@ -15,6 +15,10 @@ Next, a series of long short-term memory (LSTM) layers is used. More specificall
 ## Results
 
 After splitting the 1600 data examples into 85% training/validation and 15% testing, the model's accuracy was 87.5%. This can be further improved by tuning the hyperparameters and model design to find better solutions. 
+
+## References
+
+[1] M. Ott, C. Cardie, and J.T. Hancock, "Deceptive Opinion Spam Corpus." May 2017. Distributed by Kaggle. https://www.kaggle.com/rtatman/deceptive-opinion-spam-corpus
 
 ___
 I pledge my honor that I have abided by the Stevens Honor System

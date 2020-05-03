@@ -49,8 +49,11 @@ class Model:
         self.model.add(Conv1D(filters=32, kernel_size=3, padding='same', activation='relu', name='Conv2'))
         self.model.add(MaxPooling1D(pool_size=2, name='MaxPoo12'))
         self.model.add(Dropout(rate=self.dropout_factor, name='Dropout3'))
+        self.model.add(Conv1D(filters=32, kernel_size=3, padding='same', activation='relu', name='Conv3'))
+        self.model.add(MaxPooling1D(pool_size=2, name='MaxPoo13'))
+        self.model.add(Dropout(rate=self.dropout_factor, name='Dropout4'))
         #self.model.add(Bidirectional(LSTM(units=128, return_sequences=True, dropout=self.dropout_factor, name='LSTM1'), name='B-LSTM1'))
-        self.model.add(Bidirectional(LSTM(units=32, dropout=self.dropout_factor, name='LSTM2'), name='B-LSTM2'))
+        self.model.add(Bidirectional(LSTM(units=32, dropout=self.dropout_factor, name='LSTM'), name='B-LSTM'))
         self.model.add(Dense(1, activation='sigmoid', name='Output'))
         
         return self.model  # Return is only needed when loading the model for testing

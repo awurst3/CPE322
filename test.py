@@ -4,13 +4,13 @@ from time import time
 
 def main():
     #model_dir = 'Training_2020_04_24_21h07m38s\\'
-    model_dir = 'Training_2020_05_02_22h35m01s\\'
+    model_dir = 'Training_2020_05_02_23h44m36s\\'
 
     # Load the hyperparameters needed to build the model with the same layer shapes that wre used for training
     param_path = model_dir + 'model_params.txt'
     total_words, embedding_dim, max_length, dropout_factor, num_epochs = hpsearch.get_hyperparameters(param_path)
 
-    weights_path = model_dir + hpsearch.get_weights_best(model_dir, num_epochs)
+    weights_path = model_dir + hpsearch.get_weights_last(model_dir, num_epochs)
     
     # Construct the model and prepare it for testing
     trained = model.Model(total_words=total_words,

@@ -12,6 +12,7 @@ def plot(history, parameters, output_dir):
         plt.xlabel('Epochs')
         plt.ylabel(param)
         plt.legend(['Training', 'Validation'], loc='upper left')
+        plt.grid()
         i += 1
         plt.savefig(output_dir+'/'+param)
     plt.show() 

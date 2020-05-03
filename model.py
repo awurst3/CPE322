@@ -31,6 +31,7 @@ class Model:
         '''Set up the deep neural network model'''
 
         self.model = Sequential()
+        '''
         self.model.add(Embedding(self.total_words, self.embedding_dim, input_length=self.max_length, name='Embed'))
         self.model.add(Dropout(rate=self.dropout_factor, name='Dropout1'))
         self.model.add(Bidirectional(LSTM(units=32, return_sequences=True, name='LSTM1'), name='B-LSTM1'))
@@ -38,7 +39,20 @@ class Model:
         self.model.add(Bidirectional(LSTM(units=8, name='LSTM2'), name='B-LSTM2'))
         self.model.add(Dropout(rate=self.dropout_factor, name='Dropout3'))
         self.model.add(Dense(1, activation='sigmoid', name='Output'))
+        '''
 
+        self.model.add(Embedding(self.total_words, self.embedding_dim, input_length=self.max_length, name='Embed'))
+        self.model.add(Dropout(rate=self.dropout_factor, name='Dropout1'))
+        self.model.add(Conv1D(filters=128, kernel_size=5, padding='same', activation='relu', name='Conv1'))
+        self.model.add(MaxPooling1D(pool_size=2, name='MaxPoo11'))
+        self.model.add(Dropout(rate=self.dropout_factor, name='Dropout2'))
+        self.model.add(Conv1D(filters=32, kernel_size=3, padding='same', activation='relu', name='Conv2'))
+        self.model.add(MaxPooling1D(pool_size=2, name='MaxPoo12'))
+        self.model.add(Dropout(rate=self.dropout_factor, name='Dropout3'))
+        #self.model.add(Bidirectional(LSTM(units=128, return_sequences=True, dropout=self.dropout_factor, name='LSTM1'), name='B-LSTM1'))
+        self.model.add(Bidirectional(LSTM(units=32, dropout=self.dropout_factor, name='LSTM2'), name='B-LSTM2'))
+        self.model.add(Dense(1, activation='sigmoid', name='Output'))
+        
         return self.model  # Return is only needed when loading the model for testing
 
     def summary(self):

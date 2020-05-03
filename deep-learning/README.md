@@ -1,6 +1,6 @@
 # Fake Review Detection Using Deep Learning
 
-Reviews offer a great way to help guide one's search for a specific product. However, many online product pages contain fake reviews, which can make it harder to for consumers to decide whether or not to make a purchase. This project attempts to address this issue by detecting fake reviews using artificial intelligence. By using a labelled review dataset and a multilayer recurrent neural network (RNN), fake reviews are detected with 87.5% accuracy. The ultimate goal of the project is to build a browser tool to identify fake reviews using a neural network trained on fake review data. 
+Deep learning methods are very powerful in the context of natural language processing (NLP), which includes the problem of finding fake reviews. The data is text-based, and so a deep learning model can be constructed to accurately classify deceptive and truthful reviews. First, however, the data must be preprocessed such that it can be used effectively in a neural network. The entire process is explained below. An accuracy of 90.0% was achieved using this deep neural network. 
 
 ## Data and Preprocessing
 
@@ -10,11 +10,13 @@ The [Deceptive Opinion Spam Corpus](https://www.kaggle.com/rtatman/deceptive-opi
 
 Because the input data is text-based, an RNN makes sense to use in order to classify the reviews. The first hidden layer in the model is a word embedding layer. This layer's role is to represent each word with an *n*-dimensional vector, where *n* can be tuned based on the number of features that need to be captured. In this project, *n* was selected to be 16 due to the length of the reviews, but further tuning may show a better value instead. Following the embedding layer is a dropout layer, which is used to regularize the network and prevent overfitting. The dropout factor was set to 0.5 and can be experimented with just like the embedding dimension.
 
-Next, a series of long short-term memory (LSTM) layers is used. More specifically, two bidirectional LSTM (BLSTM) layers are used together, each with another dropout layer following their outputs. Each BLSTM layer is broken up into a forward-propagating layer of LSTM cells and a backwards-propagating layer of LSTM cells. Each pair of corresponding forward and backward LSTM cells produce a single output that incorporates context in the text. Again, the dropout layers are placed to prevent overfitting. 
+Next is a series of convolutional, max pooling, and dropout layers. A convolutional layer is useful in reducing the number of parameters in the input data while still preserving its features. Max pooling is a technique further decreases the size of the data by taking the maximum of every pair of values, cutting the size of the data in half. A dropout layer is used again for regularization afterwards. This series of a convolutional, max pooling, and dropout layers is repeated three times to continue changing the data's size before entering the last stage of the network.
+
+Finally, a long short-term memory (LSTM) layer, a type of recurrent neural network layer, is used. More specifically, a bidirectional LSTM (BLSTM) is used with a dropout factor of 0.5. The BLSTM is effectively two unidirectional LSTMs stacked together, where one propagates forwards while the other propagates backwards. This is useful because each LSTM is capable of capturing long term context in the text data. By using a BLSTM, this capability is made even better. This is the final hidden layer before the output layer, which contains a single node with a *sigmoid* activation function. This function classifies the input as 0 (truthful) or 1 (deceptive). 
 
 ## Results
 
-After splitting the 1600 data examples into 85% training/validation and 15% testing, the model's accuracy was 87.5%. This can be further improved by tuning the hyperparameters and model design to find better solutions. 
+After splitting the 1600 data examples into 85% training/validation and 15% testing, the model's accuracy was 90.0%. While training the model using various hyperparameter settings, such as different embedding dimension or dropout factor values, the model converged after only five epochs usually. Additionally, the loss started to increase after converging, while the accuracy fluctuated slightly in the epochs to follow, possibly indicating overfitting. More modifications and tuning can be done to further improve the performance. 
 
 ## References
 

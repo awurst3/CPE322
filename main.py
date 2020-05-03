@@ -9,8 +9,8 @@ from time import time, strftime, localtime
 def main():
     # Hyper-parameters (to be tuned)
     num_epochs = 30
-    embedding_dim = 16
-    val_split = 0.15
+    embedding_dim = 32
+    val_split = 0.17
     test_split = 0.15
     batch_sz = 32
     dropout_factor = 0.5
@@ -20,7 +20,7 @@ def main():
     output_dir = 'Training_' + strftime('%Y_%m_%d_%Hh%Mm%Ss', localtime(time()))
     os.mkdir(output_dir)
     
-    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+    os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
     # Load the data from the .csv file
     train_data, train_labels, test_data, test_labels, max_length, total_words, train_num, val_num = \
